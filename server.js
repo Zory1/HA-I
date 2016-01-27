@@ -6,9 +6,17 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 
 require('./models/musician');
+require('./models/pixel');
 
 app.configure(function(){
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
+
+    app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    return next();
+  });
 });
 require('./routes')(app);
 
