@@ -1,3 +1,4 @@
+//TO-DO: handle error in each of the requests
 var mongoose = require('mongoose'),
 Pixel = mongoose.model('Pixel');
 
@@ -52,10 +53,6 @@ exports.cookie_drop = function(req, res) {
     res.cookie('cookieName','1234567', { maxAge: 900000, httpOnly: true });
     console.log('cookie created successfully, and here is an id '+req.params.id);
     console.log('and here is where request came from: '+ ref);
-   // res.writeHead(302,{
-     //   'Content-Type':'text/plain',
-       // 'Location':'http://google.com/'
-    //});
     res.redirect('back'); 
     return res.end();
   });
@@ -78,6 +75,13 @@ exports.update = function(req, res) {
 exports.delete = function(req, res){
   var id = req.params.id;
   Pixel.remove({'_id':id},function(result) {
+    return res.send(result);
+  });
+};
+
+exports.delete_all = function(req, res){
+  Pixel.remove({},function(result) {
+    console.log("Inside delete method.");
     return res.send(result);
   });
 };
