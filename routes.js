@@ -5,6 +5,7 @@ module.exports = function(app){
     app.get('/pixels', pixels.findAll);
     app.get('/pixels/redirect', pixels.redir);
     app.get('/pixels/drop/:id', pixels.cookie_drop);
+    app.get('/cookie_drop/:data', pixels.cookie_drop_post);
     app.get('/pixels/:id', pixels.findById);
     app.post('/pixels', pixels.add);
     app.put('/pixels/:id', pixels.update);
